@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import ButtonActive from "../components/ButtonActive";
 
 export default function RegistrationScreen() {
   return (
@@ -19,10 +20,7 @@ export default function RegistrationScreen() {
         placeholder="Password"
         secureTextEntry={true}
       />
-
-      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.buttonText}>Register</Text>
-      </TouchableOpacity>
+      <ButtonActive>Register</ButtonActive>
     </>
   );
 }
@@ -41,16 +39,4 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginBottom: 16,
   },
-  button: {
-      width: "100%",
-      backgroundColor: '#FF6C00',
-      borderRadius: 100,
-      padding: 16,
-      marginTop: 27,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    buttonText: {
-      color: '#FFFFFF',
-  }
 });
