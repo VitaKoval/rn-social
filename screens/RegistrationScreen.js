@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 
 export default function RegistrationScreen() {
   return (
@@ -7,18 +14,22 @@ export default function RegistrationScreen() {
 
       <TextInput style={styles.input} placeholder="Login" />
       <TextInput style={styles.input} placeholder="Email" />
-      <TextInput style={styles.input} placeholder="Password" />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry={true}
+      />
 
-      <View style={styles.button}>
-        <Button title="Register" />
-      </View>
+      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   input: {
-    width: '100%',
+    width: "100%",
     borderWidth: 1,
     borderColor: "#E8E8E8",
     borderRadius: 8,
@@ -29,8 +40,17 @@ const styles = StyleSheet.create({
   nameForm: {
     fontSize: 30,
     marginBottom: 16,
+  },
+  button: {
+      width: "100%",
+      backgroundColor: '#FF6C00',
+      borderRadius: 100,
+      padding: 16,
+      marginTop: 27,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
-    button: {
-        width: '100%',
+    buttonText: {
+      color: '#FFFFFF',
   }
 });
