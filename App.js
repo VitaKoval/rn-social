@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import RegistrationScreen from "./screens/RegistrationScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -18,7 +19,7 @@ export default function App() {
     setIsShowKeyboard(true);
   };
 
-  const keyboardHide = () => {
+  const keyboardHide = (data) => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
@@ -26,9 +27,8 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-<TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container}>
-        
+      <TouchableWithoutFeedback onPress={keyboardHide}>
+        <View style={styles.container}>
           <ImageBackground
             source={require("./assets/image/photoBG.png")}
             style={styles.bgImage}
@@ -37,19 +37,19 @@ export default function App() {
               style={styles.containerForm}
               behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-              <View
-                style={{
-                  ...styles.form,
-                  marginBottom: isShowKeyboard ? -170 : 0,
-                }}
-              >
-                <RegistrationScreen keyboardShow={keyboardShow}/>
-              </View>
+              {/* <RegistrationScreen
+                keyboardShow={keyboardShow}
+                isShowKeyboard={isShowKeyboard}
+              /> */}
+              <LoginScreen
+                keyboardShow={keyboardShow}
+                isShowKeyboard={isShowKeyboard}
+
+              />
             </KeyboardAvoidingView>
           </ImageBackground>
-        
         </View>
-        </TouchableWithoutFeedback >
+      </TouchableWithoutFeedback>
     </>
   );
 }
@@ -67,15 +67,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
   },
-  form: {
-    alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: 92,
-    paddingBottom: 78,
-    marginTop: "auto",
-    backgroundColor: "#FFFFFF",
+  // form: {
+  //   alignItems: "center",
+  //   paddingHorizontal: 16,
+  //   paddingTop: 92,
+  //   paddingBottom: 78,
+  //   marginTop: "auto",
+  //   backgroundColor: "#FFFFFF",
 
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
-  },
+  //   borderTopRightRadius: 25,
+  //   borderTopLeftRadius: 25,
+  // },
 });

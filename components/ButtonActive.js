@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-function ButtonActive({children}) {
+function ButtonActive({children, onPressButton}) {
   return (
-    <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={onPressButton}>
       <Text style={styles.buttonText}>{children}</Text>
     </TouchableOpacity>
   );

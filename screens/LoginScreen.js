@@ -1,25 +1,62 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-} from "react-native";
+import { StyleSheet, View, Text, TextInput } from "react-native";
+import { useState } from "react";
 import ButtonActive from "../components/ButtonActive";
 
-function LoginScreen({keyboardShow}) {
-    return (
-      <>
+const initialState = {
+  email: "",
+  password: "",
+};
+
+function LoginScreen({ keyboardShow, isShowKeyboard }) {
+  const [inputData, setInputData] = useState(initialState);
+
+  function onSubmitForm() {
+    console.log(inputData);
+    setInputData(initialState);
+  }
+
+  return (
+    <View style={{ ...styles.form, marginBottom: isShowKeyboard ? -170 : 0 }}>
       <Text style={styles.nameForm}>Login</Text>
 
-      <TextInput style={styles.input} placeholder="Login" onFocus={keyboardShow}/>
-      <TextInput style={styles.input} placeholder="Email" onFocus={keyboardShow}/>
-            <ButtonActive>Login</ButtonActive>
-            <Text style={styles.textForm}>No account? Sing up</Text>
-            </>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onFocus={keyboardShow}
+        value={inputData.email}
+        onChangeText={(value) =>
+          setInputData((pravState) => ({ ...pravState, email: value }))
+        }
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry={true}
+        onFocus={keyboardShow}
+        value={inputData.password}
+        onChangeText={(value) =>
+          setInputData((pravState) => ({ ...pravState, password: value }))
+        }
+      />
+      <ButtonActive onPressButton={onSubmitForm}>Login</ButtonActive>
+      <Text style={styles.textForm}>Don’t have an account? Join</Text>
+    </View>
   );
 }
 
+export default LoginScreen;
+
 const styles = StyleSheet.create({
-    input: {
+  form: {
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: 32,
+    paddingBottom: 78,
+    backgroundColor: "#FFFFFF",
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
+  },
+  input: {
     width: "100%",
     borderWidth: 1,
     borderColor: "#E8E8E8",
@@ -31,10 +68,8 @@ const styles = StyleSheet.create({
   nameForm: {
     fontSize: 30,
     marginBottom: 16,
-    },
-    textForm: {
-      marginTop: 16,
-  }
+  },
+  textForm: {
+    marginTop: 16,
+  },
 });
-
-export default LoginScreen;
