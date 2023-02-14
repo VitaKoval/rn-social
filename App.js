@@ -1,21 +1,14 @@
 import { useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// screens
-import RegistrationScreen from "./screens/auth/RegistrationScreen";
-import LoginScreen from "./screens/auth/LoginScreen";
-
+import useRoute from "./router";
 // fonts
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 // SplashScreen.preventAutoHideAsync();
 
-const AuthStack = createStackNavigator();
-const MainTab = createBottomTabNavigator();
-
-export default function App() {
+function App() {
+  const routing = useRoute({});
   // fonts
   const [fontsLoaded] = useFonts({
     Roboto500: require("./assets/fonts/Roboto-Medium.ttf"),
@@ -35,18 +28,9 @@ export default function App() {
   return (
     // обернуть onLayout={onLayoutRootView}
     <NavigationContainer>
-      <AuthStack.Navigator>
-        <AuthStack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={LoginScreen}
-        />
-        <AuthStack.Screen
-          name="Register"
-          options={{ headerShown: false }}
-          component={RegistrationScreen}
-        />
-      </AuthStack.Navigator>
+      {routing}
     </NavigationContainer>
   );
 }
+
+export default App;
