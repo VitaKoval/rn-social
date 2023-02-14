@@ -9,20 +9,21 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import { useState, useEffect } from "react";
-import ButtonActive from "../components/ButtonActive";
-import { glStyle } from "../styles/style";
+import ButtonActive from "../../components/ButtonActive";
+import { glStyle } from "../../styles/style";
 
 const initialState = {
   email: "",
-  login: "",
   password: "",
 };
 
-function RegistrationScreen() {
+function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [inputData, setInputData] = useState(initialState);
+
   const [dimensions, setDimensions] = useState(
     Dimensions.get("window").width - 16 * 2
   );
@@ -59,7 +60,7 @@ function RegistrationScreen() {
       <TouchableWithoutFeedback onPress={keyboardHide}>
         <View style={styles.container}>
           <ImageBackground
-            source={require("../assets/image/photoBG.png")}
+            source={require("../../assets/image/photoBG.png")}
             style={styles.bgImage}
           >
             <KeyboardAvoidingView
@@ -73,21 +74,9 @@ function RegistrationScreen() {
                 }}
               >
                 <Text style={{ ...styles.nameForm, ...glStyle.title }}>
-                  Registration
+                  Login
                 </Text>
 
-                <TextInput
-                  style={{ ...styles.input, ...glStyle.text }}
-                  placeholder="Login"
-                  onFocus={keyboardShow}
-                  value={inputData.login}
-                  onChangeText={(value) =>
-                    setInputData((pravState) => ({
-                      ...pravState,
-                      login: value,
-                    }))
-                  }
-                />
                 <TextInput
                   style={{ ...styles.input, ...glStyle.text }}
                   placeholder="Email"
@@ -113,12 +102,25 @@ function RegistrationScreen() {
                     }))
                   }
                 />
-                <ButtonActive onPressButton={onSubmitForm}>
-                  Register
-                </ButtonActive>
-                <Text style={{ ...styles.textForm, ...glStyle.text }}>
-                  Already have an account? Login
-                </Text>
+                <ButtonActive onPressButton={onSubmitForm}>Login</ButtonActive>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <Text style={{ ...styles.textForm, ...glStyle.text }}>
+                    Don’t have an account?{""}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Register")}
+                  >
+                    <Text style={{ ...glStyle.text, color: "#1B4371" }}>
+                      Join
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </KeyboardAvoidingView>
           </ImageBackground>
@@ -128,8 +130,10 @@ function RegistrationScreen() {
   );
 }
 
+export default LoginScreen;
+
 const styles = StyleSheet.create({
-   container: {
+  container: {
     flex: 1,
     backgroundColor: "#fff",
   },
@@ -143,8 +147,8 @@ const styles = StyleSheet.create({
   form: {
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 92,
-    paddingBottom: 78,
+    paddingTop: 32,
+    paddingBottom: 111,
     backgroundColor: "#FFFFFF",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -166,5 +170,3 @@ const styles = StyleSheet.create({
     color: "#1B4371",
   },
 });
-
-export default RegistrationScreen;
