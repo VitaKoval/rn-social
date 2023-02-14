@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Dimensions,
   StyleSheet,
   View,
   ImageBackground,
@@ -8,13 +9,50 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
+// screens
 import RegistrationScreen from "./screens/RegistrationScreen";
-import LoginScreen from "./screens/LoginScreen";
+// import LoginScreen from "./screens/LoginScreen";
+
+// fonts
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [dimensions, setDimensions] = useState(Dimensions.get("window").width - 16*2);
 
+  // dimenshions screen
+  useEffect(() => {
+    const onChange = () => {
+      const windowWidth = Dimensions.get("window").width - 16*2;
+      setDimensions(windowWidth);
+    };
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    };
+  }, []);
+
+  // fonts
+  const [fontsLoaded] = useFonts({
+    Roboto500: require("./assets/fonts/Roboto-Medium.ttf"),
+    Roboto400: require("./assets/fonts/Roboto-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+  
+  // keyboard
   const keyboardShow = () => {
     setIsShowKeyboard(true);
   };
@@ -28,7 +66,7 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <TouchableWithoutFeedback onPress={keyboardHide}>
-        <View style={styles.container}>
+        <View style={styles.container} onLayout={onLayoutRootView}>
           <ImageBackground
             source={require("./assets/image/photoBG.png")}
             style={styles.bgImage}
@@ -37,15 +75,14 @@ export default function App() {
               style={styles.containerForm}
               behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-              {/* <RegistrationScreen
+              <RegistrationScreen
+                keyboardShow={keyboardShow}
+                isShowKeyboard={isShowKeyboard}
+              />
+              {/* <LoginScreen
                 keyboardShow={keyboardShow}
                 isShowKeyboard={isShowKeyboard}
               /> */}
-              <LoginScreen
-                keyboardShow={keyboardShow}
-                isShowKeyboard={isShowKeyboard}
-
-              />
             </KeyboardAvoidingView>
           </ImageBackground>
         </View>
@@ -58,7 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // justifyContent: 'flex-end',
   },
   bgImage: {
     flex: 1,
@@ -67,15 +103,4 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
   },
-  // form: {
-  //   alignItems: "center",
-  //   paddingHorizontal: 16,
-  //   paddingTop: 92,
-  //   paddingBottom: 78,
-  //   marginTop: "auto",
-  //   backgroundColor: "#FFFFFF",
-
-  //   borderTopRightRadius: 25,
-  //   borderTopLeftRadius: 25,
-  // },
 });

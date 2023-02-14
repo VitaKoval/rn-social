@@ -4,11 +4,12 @@ import {
   
   TouchableOpacity,
 } from "react-native";
+import { glStyle } from "../styles/style";
 
 function ButtonActive({children, onPressButton}) {
   return (
     <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={onPressButton}>
-      <Text style={styles.buttonText}>{children}</Text>
+      <Text style={{...styles.buttonText, ...glStyle.text}}>{children}</Text>
     </TouchableOpacity>
   );
 }
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
       color: '#FFFFFF',
+     
   }
 });
 

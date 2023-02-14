@@ -1,6 +1,8 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { useState } from "react";
 import ButtonActive from "../components/ButtonActive";
+import { glStyle } from "../styles/style";
+
 
 const initialState = {
   email: "",
@@ -17,10 +19,10 @@ function LoginScreen({ keyboardShow, isShowKeyboard }) {
 
   return (
     <View style={{ ...styles.form, marginBottom: isShowKeyboard ? -170 : 0 }}>
-      <Text style={styles.nameForm}>Login</Text>
+      <Text style={{...styles.nameForm, ...glStyle.title}}>Login</Text>
 
       <TextInput
-        style={styles.input}
+        style={{...styles.input, ...glStyle.text}}
         placeholder="Email"
         onFocus={keyboardShow}
         value={inputData.email}
@@ -29,7 +31,7 @@ function LoginScreen({ keyboardShow, isShowKeyboard }) {
         }
       />
       <TextInput
-        style={styles.input}
+        style={{...styles.input, ...glStyle.text}}
         placeholder="Password"
         secureTextEntry={true}
         onFocus={keyboardShow}
@@ -39,7 +41,7 @@ function LoginScreen({ keyboardShow, isShowKeyboard }) {
         }
       />
       <ButtonActive onPressButton={onSubmitForm}>Login</ButtonActive>
-      <Text style={styles.textForm}>Don’t have an account? Join</Text>
+      <Text style={{...styles.textForm, ...glStyle.text}}>Don’t have an account? Join</Text>
     </View>
   );
 }
@@ -66,10 +68,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   nameForm: {
-    fontSize: 30,
     marginBottom: 16,
   },
   textForm: {
-    marginTop: 16,
+      marginTop: 16,
+      color: '#1B4371'
   },
 });
