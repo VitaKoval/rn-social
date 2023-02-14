@@ -6,9 +6,9 @@ import {
 } from "react-native";
 import { glStyle } from "../styles/style";
 
-function ButtonActive({children, onPressButton}) {
+function ButtonActive({children, onPressButton, ...props}) {
   return (
-    <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={onPressButton}>
+    <TouchableOpacity style={{...styles.button, ...props}} activeOpacity={0.8} onPress={onPressButton}>
       <Text style={{...styles.buttonText, ...glStyle.text}}>{children}</Text>
     </TouchableOpacity>
   );
@@ -16,11 +16,11 @@ function ButtonActive({children, onPressButton}) {
 
 const styles = StyleSheet.create({
   button: {
-      width: "100%",
+      // width: "100%",
       backgroundColor: '#FF6C00',
       borderRadius: 100,
-      padding: 16,
-      marginTop: 27,
+      // padding: 16,
+      // marginTop: 27,
       alignItems: 'center',
       justifyContent: 'center',
     },
