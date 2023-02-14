@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingTop: 32,
-    paddingBottom: 78,
+    paddingBottom: 111,
     backgroundColor: "#FFFFFF",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   nameForm: {
-    marginBottom: 16,
+    marginBottom: 33,
   },
   textForm: {
       marginTop: 16,

@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   nameForm: {
-    marginBottom: 16,
+    marginBottom: 33,
   },
   textForm: {
     marginTop: 16,
