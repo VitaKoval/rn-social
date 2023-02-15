@@ -16,11 +16,11 @@ function ButtonActive({children, onPressButton, ...props}) {
 
 const styles = StyleSheet.create({
   button: {
-      // width: "100%",
+      width: "100%",
       backgroundColor: '#FF6C00',
       borderRadius: 100,
-      // padding: 16,
-      // marginTop: 27,
+      padding: 16,
+      marginTop: 27,
       alignItems: 'center',
       justifyContent: 'center',
     },

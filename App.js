@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import useRoute from "./router";
 // fonts
@@ -8,7 +8,8 @@ import * as SplashScreen from "expo-splash-screen";
 // SplashScreen.preventAutoHideAsync();
 
 function App() {
-  const routing = useRoute({});
+  const [isAuth, setIsAuth] = useState(null);
+
   // fonts
   const [fontsLoaded] = useFonts({
     Roboto500: require("./assets/fonts/Roboto-Medium.ttf"),
@@ -24,6 +25,8 @@ function App() {
   if (!fontsLoaded) {
     return null;
   }
+
+  const routing = useRoute(isAuth);
 
   return (
     // обернуть onLayout={onLayoutRootView}

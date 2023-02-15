@@ -14,6 +14,7 @@ import {
 import { useState, useEffect } from "react";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
+import useRoute from "../../router";
 
 const initialState = {
   email: "",
@@ -53,6 +54,8 @@ function LoginScreen({ navigation }) {
   function onSubmitForm() {
     console.log(inputData);
     setInputData(initialState);
+
+    useRoute({});
   }
 
   return (
