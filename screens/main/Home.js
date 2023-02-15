@@ -1,8 +1,7 @@
 // import { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {View} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Button, TouchableOpacity } from "react-native-web";
-// import { glStyle } from "../../styles/style";
+
 // screens
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
@@ -12,7 +11,6 @@ import ProfileScreen from "./ProfileScreen";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import ButtonActive from "../../components/ButtonActive";
 
 const MainTab = createBottomTabNavigator();
 
@@ -64,26 +62,6 @@ function Home() {
             );
           },
         }}
-        // options={{
-        //   tabBarButton: ()=> (<Text>+</Text>)
-        // }}
-        // options={{
-        //   tabBarButton: ({style}) => (
-        //       <Entypo name="plus" size={13} color="red" />
-        //   ),
-        // }}
-        // options={{
-        //   tabBarButton: () => (
-        //     <ButtonActive width={70} padding={13} height={40}>
-        //       <Entypo name="plus" size={13} color="#FFFFFF" />
-        //     </ButtonActive>
-        //   ),
-        // }}
-        // options={{
-        //   tabBarIcon: ({ focused, color, size }) => (
-        //     <Entypo name="plus" size={size} color={color} />
-        //   ),
-        // }}
         name="CreatePost"
         component={CreatePostsScreen}
       />

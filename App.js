@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import {useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import useRoute from "./router";
 // fonts
