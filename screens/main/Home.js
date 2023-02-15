@@ -11,6 +11,7 @@ import ProfileScreen from "./ProfileScreen";
 // icons
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import ButtonActive from "../../components/ButtonActive";
 
 const MainTab = createBottomTabNavigator();
@@ -28,9 +29,14 @@ function Home() {
           tabBarIcon: ({ focused, color, size }) => (
             <Feather name="grid" size={size} color={color} />
           ),
-          // header: ({ navigation, route, options }) => (
-
-          // ),
+          headerRight: () => (
+            <MaterialIcons
+              name="logout"
+              size={24}
+              color="#BDBDBD"
+              style={{ marginRight: 16 }}
+            />
+          ),
         }}
         name="Posts"
         component={PostsScreen}
