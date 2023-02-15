@@ -24,22 +24,7 @@ const initialState = {
 function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [inputData, setInputData] = useState(initialState);
-  const [dimensions, setDimensions] = useState(
-    Dimensions.get("window").width - 16 * 2
-  );
-
-  // dimenshions screen
-  useEffect(() => {
-    const onChange = () => {
-      const windowWidth = Dimensions.get("window").width - 16 * 2;
-      setDimensions(windowWidth);
-    };
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
-  }, []);
-
+  
   // keyboard
   const keyboardShow = () => {
     setIsShowKeyboard(true);
@@ -184,3 +169,22 @@ const styles = StyleSheet.create({
 });
 
 export default RegistrationScreen;
+
+
+
+
+// const [dimensions, setDimensions] = useState(
+  //   Dimensions.get("window").width - 16 * 2
+  // );
+
+  // // dimenshions screen
+  // useEffect(() => {
+  //   const onChange = () => {
+  //     const windowWidth = Dimensions.get("window").width - 16 * 2;
+  //     setDimensions(windowWidth);
+  //   };
+  //   Dimensions.addEventListener("change", onChange);
+  //   return () => {
+  //     Dimensions.removeEventListener("change", onChange);
+  //   };
+  // }, []);

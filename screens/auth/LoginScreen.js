@@ -14,7 +14,6 @@ import {
 import { useState, useEffect } from "react";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
-import useRoute from "../../router";
 
 const initialState = {
   email: "",
@@ -24,22 +23,6 @@ const initialState = {
 function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [inputData, setInputData] = useState(initialState);
-
-  const [dimensions, setDimensions] = useState(
-    Dimensions.get("window").width - 16 * 2
-  );
-
-  // dimenshions screen
-  useEffect(() => {
-    const onChange = () => {
-      const windowWidth = Dimensions.get("window").width - 16 * 2;
-      setDimensions(windowWidth);
-    };
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
-  }, []);
 
   // keyboard
   const keyboardShow = () => {
@@ -54,8 +37,6 @@ function LoginScreen({ navigation }) {
   function onSubmitForm() {
     console.log(inputData);
     setInputData(initialState);
-
-    useRoute({});
   }
 
   return (
@@ -133,8 +114,6 @@ function LoginScreen({ navigation }) {
   );
 }
 
-export default LoginScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -173,3 +152,22 @@ const styles = StyleSheet.create({
     color: "#1B4371",
   },
 });
+
+export default LoginScreen;
+
+
+// const [dimensions, setDimensions] = useState(
+//   Dimensions.get("window").width - 16 * 2
+// );
+
+// // dimenshions screen
+// useEffect(() => {
+//   const onChange = () => {
+//     const windowWidth = Dimensions.get("window").width - 16 * 2;
+//     setDimensions(windowWidth);
+//   };
+//   Dimensions.addEventListener("change", onChange);
+//   return () => {
+//     Dimensions.removeEventListener("change", onChange);
+//   };
+// }, []);

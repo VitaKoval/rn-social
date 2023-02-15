@@ -8,8 +8,6 @@ import * as SplashScreen from "expo-splash-screen";
 // SplashScreen.preventAutoHideAsync();
 
 function App() {
-  const [isAuth, setIsAuth] = useState(null);
-
   // fonts
   const [fontsLoaded] = useFonts({
     Roboto500: require("./assets/fonts/Roboto-Medium.ttf"),
@@ -26,11 +24,11 @@ function App() {
     return null;
   }
 
-  const routing = useRoute(isAuth);
+  const routing = useRoute(true);
 
   return (
     // обернуть onLayout={onLayoutRootView}
-    <NavigationContainer>
+    <NavigationContainer onLayout={onLayoutRootView}>
       {routing}
     </NavigationContainer>
   );
