@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
 function CreatePostsScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -55,20 +55,34 @@ function CreatePostsScreen() {
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-        <Camera style={styles.camera} ref={setCameraRef}>
-          {photo && (
-            <View style={styles.photoContainer}>
-              <Image style={styles.photo} source={{ uri: photo }} />
-            </View>
-          )}
+        <View style={styles.cameraContainer}>
+          <Camera style={styles.camera} ref={setCameraRef}>
+            {photo && (
+              <View style={styles.photoContainer}>
+                <Image style={styles.photo} source={{ uri: photo }} />
+              </View>
+            )}
 
-          <TouchableOpacity
-            style={[styles.snapContainer, {backgroundColor: photo? "rgba(255, 255, 255, 0.3);" :"#FFFFFF",}]}
-            onPress={takePhoto}
-          >
-            <Ionicons name="md-camera" size={24} color={photo ? '#FFFFFF':"#BDBDBD"} />
-          </TouchableOpacity>
-        </Camera>
+            <TouchableOpacity
+              style={[
+                styles.snapContainer,
+                {
+                  backgroundColor: photo
+                    ? "rgba(255, 255, 255, 0.3);"
+                    : "#FFFFFF",
+                },
+              ]}
+              onPress={takePhoto}
+            >
+              <Ionicons
+                name="md-camera"
+                size={24}
+                color={photo ? "#FFFFFF" : "#BDBDBD"}
+              />
+            </TouchableOpacity>
+          </Camera>
+        </View>
+
         <TouchableOpacity style={styles.actionPhoto} onPress={() => {}}>
           <Text style={[styles.actionPhotoText, glStyle.text]}>
             Upload a photo
@@ -88,7 +102,7 @@ function CreatePostsScreen() {
           <ButtonActive
             onPressButton={() => {}}
             backgroundColor={photo ? "#FF6C00" : "#F6F6F6"}
-            textColor={{color: photo ? "#FFFFFF" : "#BDBDBD"}}
+            textColor={{ color: photo ? "#FFFFFF" : "#BDBDBD" }}
           >
             Publish
           </ButtonActive>
@@ -105,31 +119,36 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 32,
   },
+  cameraContainer: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    overflow: "hidden",
+  },
   camera: {
     height: 240,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#F6F6F6",
   },
   photoContainer: {
     position: "absolute",
     top: 0,
     left: 0,
-    borderWidth: 1,
-    borderColor: "red",
+
+    borderRadius: 8,
+    overflow: "hidden",
   },
   photo: {
     minWidth: 100,
     height: 100,
   },
   snapContainer: {
-
-              borderWidth: 1,
-              width: 60,
-              height: 60,
-              borderRadius: 30,
-              alignItems: "center",
-              justifyContent: "center",
-            
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
   },
   actionPhoto: {
     marginTop: 8,
