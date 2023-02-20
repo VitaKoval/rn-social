@@ -3,16 +3,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import useRoute from "./router";
 // fonts
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+// import * as SplashScreen from "expo-splash-screen";
 
 // SplashScreen.preventAutoHideAsync();
 
 function App() {
   // fonts
   const [fontsLoaded] = useFonts({
-    Roboto500: require("./assets/fonts/Roboto-Medium.ttf"),
-    Roboto400: require("./assets/fonts/Roboto-Regular.ttf"),
+    'Roboto500': require("./assets/fonts/Roboto-Medium.ttf"),
+    'Roboto400': require("./assets/fonts/Roboto-Regular.ttf"),
   });
+
+  // if (!fontsLoaded) {
+  //   return <AppLoading/>
+  // }
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
