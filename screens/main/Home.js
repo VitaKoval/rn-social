@@ -1,5 +1,4 @@
-// import { useState, useEffect } from "react";
-import {View} from "react-native";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // screens
@@ -10,7 +9,6 @@ import ProfileScreen from "./ProfileScreen";
 // icons
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 
 const MainTab = createBottomTabNavigator();
 
@@ -27,16 +25,9 @@ function Home() {
           tabBarIcon: ({ focused, color, size }) => (
             <Feather name="grid" size={size} color={color} />
           ),
-          headerRight: () => (
-            <MaterialIcons
-              name="logout"
-              size={24}
-              color="#BDBDBD"
-              style={{ marginRight: 16 }}
-            />
-          ),
+          headerShown: false,
         }}
-        name="Posts"
+        name="PostsScreen"
         component={PostsScreen}
       />
       <MainTab.Screen

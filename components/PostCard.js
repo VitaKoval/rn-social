@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-
 import { glStyle } from "../styles/style";
-
+// icons
 import { EvilIcons } from "@expo/vector-icons";
 
 function PostCard({ dataPost, navigation }) {
-  const { photo } = dataPost;
+  const { photo, location } = dataPost;
 
   function toComments() {
     navigation.navigate("CommentsScreen");
+  }
+
+  function toLocationMap() {
+    navigation.navigate("MapScreen", { location });
   }
 
   return (
@@ -18,14 +21,17 @@ function PostCard({ dataPost, navigation }) {
       </View>
       <Text style={[styles.namePhoto, glStyle.textBold]}>Name photo</Text>
       <View style={styles.descriptionContainer}>
-        <TouchableOpacity style={styles.commentContainer} onPress={() => {}}>
+        <TouchableOpacity style={styles.commentContainer} onPress={toComments}>
           <EvilIcons name="comment" size={24} color="#BDBDBD" />
           <Text style={[styles.commentCounter, glStyle.text]}>0</Text>
         </TouchableOpacity>
-        <View style={styles.locationContainer}>
+        <TouchableOpacity
+          style={styles.locationContainer}
+          onPress={toLocationMap}
+        >
           <EvilIcons name="location" size={24} color="#BDBDBD" />
           <Text style={[styles.locationText, glStyle.text]}>Location</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -37,9 +43,6 @@ const styles = StyleSheet.create({
   container: {
     height: 300,
     marginVertical: 16,
-
-    // borderWidth: 1,
-    // borderColor: 'black',
   },
   photoContainer: {
     height: 240,

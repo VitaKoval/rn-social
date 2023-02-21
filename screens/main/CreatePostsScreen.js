@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
 
@@ -22,7 +22,7 @@ function CreatePostsScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState();
-  //  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState(null);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   // keyboard
@@ -44,28 +44,25 @@ function CreatePostsScreen({ navigation }) {
   // location
   const locationAccesRequest = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-  }
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+  };
 
   useEffect(() => {
     cameraAccessRequest();
     locationAccesRequest();
   }, []);
 
-  // if (hasPermission === null) {
-  //   return <View />;
-  // }
-  // if (hasPermission === false) {
-  //   return <Text>Нет доступа к камере</Text>;
-  // }
-
   async function takePhoto() {
     const photo = await cameraRef.takePictureAsync();
     const location = await Location.getCurrentPositionAsync();
-    console.log(location);
+
+    setLocation({
+      longitude: location.coords.longitude,
+      latitude: location.coords.latitude,
+    });
     setPhoto(photo.uri);
   }
 
@@ -74,7 +71,7 @@ function CreatePostsScreen({ navigation }) {
   }
 
   function sendPost() {
-    navigation.navigate("Posts", { photo });
+    navigation.navigate("Posts", { photo, location });
   }
 
   return (
