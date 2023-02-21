@@ -14,10 +14,6 @@ function App() {
     'Roboto400': require("./assets/fonts/Roboto-Regular.ttf"),
   });
 
-  // if (!fontsLoaded) {
-  //   return <AppLoading/>
-  // }
-
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();

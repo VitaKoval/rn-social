@@ -13,9 +13,9 @@ import {
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
 import { Ionicons } from "@expo/vector-icons";
-import { EvilIcons } from '@expo/vector-icons';
+import { EvilIcons } from "@expo/vector-icons";
 
-function CreatePostsScreen() {
+function CreatePostsScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState();
@@ -57,6 +57,10 @@ function CreatePostsScreen() {
     setPhoto(undefined);
   }
 
+  function sendPost() {
+    navigation.navigate("Posts", { photo });
+  }
+
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
@@ -94,29 +98,28 @@ function CreatePostsScreen() {
           </Text>
         </TouchableOpacity>
         <TextInput
-          style={[styles.input, { fontFamily: "Roboto500" }]}
+          style={[styles.input, glStyle.textBold]}
           placeholder="Name..."
           onFocus={keyboardShow}
         />
         <View>
           <TextInput
-            style={[styles.input, { fontFamily: "Roboto400", paddingLeft: 28 }]}
+            style={[styles.input, glStyle.text, { paddingLeft: 28 }]}
             placeholder="Location..."
             onFocus={keyboardShow}
           />
           <View style={styles.inputIcon}>
-<EvilIcons name="location" size={24} color="#BDBDBD" />
+            <EvilIcons name="location" size={24} color="#BDBDBD" />
           </View>
-
         </View>
 
         <View style={styles.buttonContainer}>
           <ButtonActive
-            onPressButton={() => {}}
+            onPressButton={sendPost}
             backgroundColor={photo ? "#FF6C00" : "#F6F6F6"}
             textColor={{ color: photo ? "#FFFFFF" : "#BDBDBD" }}
           >
-            Publish
+            Send
           </ButtonActive>
         </View>
       </View>
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   inputIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 30,
     left: 0,
   },
