@@ -6,8 +6,6 @@ import { glStyle } from "../../styles/style";
 function PostsScreen({ route, navigation }) {
   const [posts, setPosts] = useState([]);
 
-  console.log("navigationPostScreen", navigation.navigate);
-
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);

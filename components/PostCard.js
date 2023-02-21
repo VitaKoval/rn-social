@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+
 import { glStyle } from "../styles/style";
 
 import { EvilIcons } from "@expo/vector-icons";

@@ -10,8 +10,11 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import * as Location from 'expo-location';
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
+
+// icons
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 
@@ -19,6 +22,7 @@ function CreatePostsScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState();
+  //  const [location, setLocation] = useState(null);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   // keyboard
@@ -37,8 +41,18 @@ function CreatePostsScreen({ navigation }) {
     setHasPermission(status === "granted");
   };
 
+  // location
+  const locationAccesRequest = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+  }
+
   useEffect(() => {
     cameraAccessRequest();
+    locationAccesRequest();
   }, []);
 
   // if (hasPermission === null) {
@@ -50,6 +64,8 @@ function CreatePostsScreen({ navigation }) {
 
   async function takePhoto() {
     const photo = await cameraRef.takePictureAsync();
+    const location = await Location.getCurrentPositionAsync();
+    console.log(location);
     setPhoto(photo.uri);
   }
 
