@@ -4,7 +4,8 @@ import { glStyle } from "../styles/style";
 import { EvilIcons } from "@expo/vector-icons";
 
 function PostCard({ dataPost, navigation }) {
-  const { photo, location } = dataPost;
+  const { photo, location, inputData } = dataPost;
+  console.log(inputData);
 
   function toComments() {
     navigation.navigate("CommentsScreen");
@@ -19,7 +20,7 @@ function PostCard({ dataPost, navigation }) {
       <View style={styles.photoContainer}>
         <Image source={{ uri: photo }} style={styles.photo} />
       </View>
-      <Text style={[styles.namePhoto, glStyle.textBold]}>Name photo</Text>
+      <Text style={[styles.namePhoto, glStyle.textBold]}>{inputData.name}</Text>
       <View style={styles.descriptionContainer}>
         <TouchableOpacity style={styles.commentContainer} onPress={toComments}>
           <EvilIcons name="comment" size={24} color="#BDBDBD" />
@@ -30,7 +31,7 @@ function PostCard({ dataPost, navigation }) {
           onPress={toLocationMap}
         >
           <EvilIcons name="location" size={24} color="#BDBDBD" />
-          <Text style={[styles.locationText, glStyle.text]}>Location</Text>
+          <Text style={[styles.locationText, glStyle.text]}>{ inputData.locationName}</Text>
         </TouchableOpacity>
       </View>
     </View>

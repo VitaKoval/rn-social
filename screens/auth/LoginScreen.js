@@ -35,7 +35,6 @@ function LoginScreen({ navigation }) {
   };
 
   function onSubmitForm() {
-    console.log(inputData);
     setInputData(initialState);
   }
 

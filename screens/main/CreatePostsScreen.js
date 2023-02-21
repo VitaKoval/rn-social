@@ -18,11 +18,17 @@ import { glStyle } from "../../styles/style";
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 
+const initialState = {
+  name: "",
+  locationName: "",
+};
+
 function CreatePostsScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState();
   const [location, setLocation] = useState(null);
+  const [inputData, setInputData] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   // keyboard
@@ -71,7 +77,9 @@ function CreatePostsScreen({ navigation }) {
   }
 
   function sendPost() {
-    navigation.navigate("Posts", { photo, location });
+    navigation.navigate("Posts", { photo, location, inputData });
+    setInputData(initialState);
+    setPhoto(undefined);
   }
 
   return (
@@ -114,12 +122,26 @@ function CreatePostsScreen({ navigation }) {
           style={[styles.input, glStyle.textBold]}
           placeholder="Name..."
           onFocus={keyboardShow}
+          value={inputData.name}
+          onChangeText={(value) =>
+            setInputData((pravState) => ({
+              ...pravState,
+              name: value,
+            }))
+          }
         />
         <View>
           <TextInput
             style={[styles.input, glStyle.text, { paddingLeft: 28 }]}
             placeholder="Location..."
             onFocus={keyboardShow}
+            value={inputData.locationName}
+            onChangeText={(value) =>
+              setInputData((pravState) => ({
+                ...pravState,
+                locationName: value,
+              }))
+            }
           />
           <View style={styles.inputIcon}>
             <EvilIcons name="location" size={24} color="#BDBDBD" />
