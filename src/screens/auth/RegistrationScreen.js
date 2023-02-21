@@ -17,13 +17,14 @@ import { glStyle } from "../../styles/style";
 
 const initialState = {
   email: "",
+  login: "",
   password: "",
 };
 
-function LoginScreen({ navigation }) {
+function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [inputData, setInputData] = useState(initialState);
-
+  
   // keyboard
   const keyboardShow = () => {
     setIsShowKeyboard(true);
@@ -35,6 +36,7 @@ function LoginScreen({ navigation }) {
   };
 
   function onSubmitForm() {
+    console.log(inputData);
     setInputData(initialState);
   }
 
@@ -43,7 +45,7 @@ function LoginScreen({ navigation }) {
       <TouchableWithoutFeedback onPress={keyboardHide}>
         <View style={styles.container}>
           <ImageBackground
-            source={require("../../assets/image/photoBG.png")}
+            source={require("../../../assets/image/photoBG.png")}
             style={styles.bgImage}
           >
             <KeyboardAvoidingView
@@ -57,9 +59,21 @@ function LoginScreen({ navigation }) {
                 }}
               >
                 <Text style={{ ...styles.nameForm, ...glStyle.title }}>
-                  Login
+                  Registration
                 </Text>
 
+                <TextInput
+                  style={{ ...styles.input, ...glStyle.text }}
+                  placeholder="Login"
+                  onFocus={keyboardShow}
+                  value={inputData.login}
+                  onChangeText={(value) =>
+                    setInputData((pravState) => ({
+                      ...pravState,
+                      login: value,
+                    }))
+                  }
+                />
                 <TextInput
                   style={{ ...styles.input, ...glStyle.text }}
                   placeholder="Email"
@@ -85,7 +99,9 @@ function LoginScreen({ navigation }) {
                     }))
                   }
                 />
-                <ButtonActive onPressButton={onSubmitForm}>Login</ButtonActive>
+                <ButtonActive onPressButton={onSubmitForm}>
+                  Register
+                </ButtonActive>
                 <View
                   style={{
                     flexDirection: "row",
@@ -94,13 +110,13 @@ function LoginScreen({ navigation }) {
                   }}
                 >
                   <Text style={{ ...styles.textForm, ...glStyle.text }}>
-                    Don’t have an account?{""}
+                    Already have an account?{""}
                   </Text>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Register")}
+                    onPress={() => navigation.navigate("Login")}
                   >
                     <Text style={{ ...glStyle.text, color: "#1B4371" }}>
-                      Join
+                      Login
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -128,8 +144,8 @@ const styles = StyleSheet.create({
   form: {
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 32,
-    paddingBottom: 111,
+    paddingTop: 92,
+    paddingBottom: 78,
     backgroundColor: "#FFFFFF",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -152,21 +168,23 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegistrationScreen;
+
+
 
 
 // const [dimensions, setDimensions] = useState(
-//   Dimensions.get("window").width - 16 * 2
-// );
+  //   Dimensions.get("window").width - 16 * 2
+  // );
 
-// // dimenshions screen
-// useEffect(() => {
-//   const onChange = () => {
-//     const windowWidth = Dimensions.get("window").width - 16 * 2;
-//     setDimensions(windowWidth);
-//   };
-//   Dimensions.addEventListener("change", onChange);
-//   return () => {
-//     Dimensions.removeEventListener("change", onChange);
-//   };
-// }, []);
+  // // dimenshions screen
+  // useEffect(() => {
+  //   const onChange = () => {
+  //     const windowWidth = Dimensions.get("window").width - 16 * 2;
+  //     setDimensions(windowWidth);
+  //   };
+  //   Dimensions.addEventListener("change", onChange);
+  //   return () => {
+  //     Dimensions.removeEventListener("change", onChange);
+  //   };
+  // }, []);

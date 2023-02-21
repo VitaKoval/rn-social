@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { glStyle } from "../../styles/style";
 
-function ProfileScreen() {
+function CommentsScreen() {
   return (
     <View style={styles.container}>
-      <Text>ProfileScreen</Text>
+      <Text>CommentsScreen</Text>
     </View>
   );
 }
+
+export default CommentsScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#FFFFFF',
   },
 });
 
-export default ProfileScreen;
+

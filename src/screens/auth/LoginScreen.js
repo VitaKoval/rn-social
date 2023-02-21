@@ -11,20 +11,19 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
 
 const initialState = {
   email: "",
-  login: "",
   password: "",
 };
 
-function RegistrationScreen({ navigation }) {
+function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [inputData, setInputData] = useState(initialState);
-  
+
   // keyboard
   const keyboardShow = () => {
     setIsShowKeyboard(true);
@@ -36,7 +35,6 @@ function RegistrationScreen({ navigation }) {
   };
 
   function onSubmitForm() {
-    console.log(inputData);
     setInputData(initialState);
   }
 
@@ -45,7 +43,7 @@ function RegistrationScreen({ navigation }) {
       <TouchableWithoutFeedback onPress={keyboardHide}>
         <View style={styles.container}>
           <ImageBackground
-            source={require("../../assets/image/photoBG.png")}
+            source={require("../../../assets/image/photoBG.png")}
             style={styles.bgImage}
           >
             <KeyboardAvoidingView
@@ -59,21 +57,9 @@ function RegistrationScreen({ navigation }) {
                 }}
               >
                 <Text style={{ ...styles.nameForm, ...glStyle.title }}>
-                  Registration
+                  Login
                 </Text>
 
-                <TextInput
-                  style={{ ...styles.input, ...glStyle.text }}
-                  placeholder="Login"
-                  onFocus={keyboardShow}
-                  value={inputData.login}
-                  onChangeText={(value) =>
-                    setInputData((pravState) => ({
-                      ...pravState,
-                      login: value,
-                    }))
-                  }
-                />
                 <TextInput
                   style={{ ...styles.input, ...glStyle.text }}
                   placeholder="Email"
@@ -99,9 +85,7 @@ function RegistrationScreen({ navigation }) {
                     }))
                   }
                 />
-                <ButtonActive onPressButton={onSubmitForm}>
-                  Register
-                </ButtonActive>
+                <ButtonActive onPressButton={onSubmitForm}>Login</ButtonActive>
                 <View
                   style={{
                     flexDirection: "row",
@@ -110,13 +94,13 @@ function RegistrationScreen({ navigation }) {
                   }}
                 >
                   <Text style={{ ...styles.textForm, ...glStyle.text }}>
-                    Already have an account?{""}
+                    Don’t have an account?{""}
                   </Text>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Login")}
+                    onPress={() => navigation.navigate("Register")}
                   >
                     <Text style={{ ...glStyle.text, color: "#1B4371" }}>
-                      Login
+                      Join
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -144,8 +128,8 @@ const styles = StyleSheet.create({
   form: {
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 92,
-    paddingBottom: 78,
+    paddingTop: 32,
+    paddingBottom: 111,
     backgroundColor: "#FFFFFF",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -168,23 +152,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistrationScreen;
-
-
+export default LoginScreen;
 
 
 // const [dimensions, setDimensions] = useState(
-  //   Dimensions.get("window").width - 16 * 2
-  // );
+//   Dimensions.get("window").width - 16 * 2
+// );
 
-  // // dimenshions screen
-  // useEffect(() => {
-  //   const onChange = () => {
-  //     const windowWidth = Dimensions.get("window").width - 16 * 2;
-  //     setDimensions(windowWidth);
-  //   };
-  //   Dimensions.addEventListener("change", onChange);
-  //   return () => {
-  //     Dimensions.removeEventListener("change", onChange);
-  //   };
-  // }, []);
+// // dimenshions screen
+// useEffect(() => {
+//   const onChange = () => {
+//     const windowWidth = Dimensions.get("window").width - 16 * 2;
+//     setDimensions(windowWidth);
+//   };
+//   Dimensions.addEventListener("change", onChange);
+//   return () => {
+//     Dimensions.removeEventListener("change", onChange);
+//   };
+// }, []);

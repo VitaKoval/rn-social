@@ -5,7 +5,6 @@ import { EvilIcons } from "@expo/vector-icons";
 
 function PostCard({ dataPost, navigation }) {
   const { photo, location, inputData } = dataPost;
-  console.log(inputData);
 
   function toComments() {
     navigation.navigate("CommentsScreen");
