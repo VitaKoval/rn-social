@@ -13,6 +13,7 @@ import {
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
 import { Ionicons } from "@expo/vector-icons";
+import { EvilIcons } from '@expo/vector-icons';
 
 function CreatePostsScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -47,10 +48,14 @@ function CreatePostsScreen() {
   //   return <Text>Нет доступа к камере</Text>;
   // }
 
-  const takePhoto = async () => {
+  async function takePhoto() {
     const photo = await cameraRef.takePictureAsync();
     setPhoto(photo.uri);
-  };
+  }
+
+  function uploadPhoto() {
+    setPhoto(undefined);
+  }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
@@ -83,7 +88,7 @@ function CreatePostsScreen() {
           </Camera>
         </View>
 
-        <TouchableOpacity style={styles.actionPhoto} onPress={() => {}}>
+        <TouchableOpacity style={styles.actionPhoto} onPress={uploadPhoto}>
           <Text style={[styles.actionPhotoText, glStyle.text]}>
             Upload a photo
           </Text>
@@ -93,11 +98,18 @@ function CreatePostsScreen() {
           placeholder="Name..."
           onFocus={keyboardShow}
         />
-        <TextInput
-          style={[styles.input, { fontFamily: "Roboto400" }]}
-          placeholder="Locality..."
-          onFocus={keyboardShow}
-        />
+        <View>
+          <TextInput
+            style={[styles.input, { fontFamily: "Roboto400", paddingLeft: 28 }]}
+            placeholder="Location..."
+            onFocus={keyboardShow}
+          />
+          <View style={styles.inputIcon}>
+<EvilIcons name="location" size={24} color="#BDBDBD" />
+          </View>
+
+        </View>
+
         <View style={styles.buttonContainer}>
           <ButtonActive
             onPressButton={() => {}}
@@ -163,6 +175,11 @@ const styles = StyleSheet.create({
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 2,
     marginVertical: 16,
+  },
+  inputIcon: {
+    position: 'absolute',
+    top: 30,
+    left: 0,
   },
   buttonContainer: {
     marginTop: 16,
