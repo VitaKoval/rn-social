@@ -1,10 +1,9 @@
-import { useCallback } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import useRoute from "./src/router";
+import { useCallback, useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./src/redux/store";
 // fonts
 import { useFonts } from "expo-font";
+import Main from "./src/components/Main";
 
 // import * as SplashScreen from "expo-splash-screen";
 
@@ -27,14 +26,10 @@ function App() {
     return null;
   }
 
-  const routing = useRoute(true);
-
   return (
-    // обернуть onLayout={onLayoutRootView}
-    <Provider store={store}>
-      <NavigationContainer onLayout={onLayoutRootView}>
-        {routing}
-      </NavigationContainer>
+    // onLayout={onLayoutRootView}
+    <Provider store={store} >
+     <Main/>
     </Provider>
   );
 }

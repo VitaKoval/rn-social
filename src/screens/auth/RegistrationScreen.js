@@ -14,6 +14,8 @@ import {
 import { useState, useEffect } from "react";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
+import { authSingUpUser } from "../../redux/auth/authOperations"; 
+import { useDispatch } from 'react-redux';
 
 const initialState = {
   email: "",
@@ -24,6 +26,8 @@ const initialState = {
 function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [inputData, setInputData] = useState(initialState);
+
+  const dispatch = useDispatch();
   
   // keyboard
   const keyboardShow = () => {
@@ -37,6 +41,7 @@ function RegistrationScreen({ navigation }) {
 
   function onSubmitForm() {
     console.log(inputData);
+    dispatch(authSingUpUser(inputData));
     setInputData(initialState);
   }
 
