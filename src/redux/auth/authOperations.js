@@ -56,8 +56,9 @@ function authStateChanged() {
               email: user.email,
             })
           );
-        }
           dispatch(authStateChanged(true));
+        }
+          return;
       });
     } catch (error) {
       console.log(error.code, error.message);
