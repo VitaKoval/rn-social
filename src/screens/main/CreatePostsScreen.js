@@ -14,6 +14,10 @@ import * as Location from "expo-location";
 import ButtonActive from "../../components/ButtonActive";
 import { glStyle } from "../../styles/style";
 
+//firebase
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase/config";
+
 // icons
 import { Ionicons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
@@ -78,8 +82,27 @@ function CreatePostsScreen({ navigation }) {
 
   function sendPost() {
     navigation.navigate("Posts", { photo, location, inputData });
+
+    uploadPhotoToServer();
+
     setInputData(initialState);
     setPhoto(undefined);
+  }
+
+  async function uploadPhotoToServer() {
+    const response = await fetch(photo);
+    const file = await response.blob();
+
+    const uniquePostId = Date.now().toString();
+
+    const storageRef = await ref(storage, `postImage/${uniquePostId}`);
+    await uploadBytes(storageRef, file);
+
+    const imageRef = await ref(storage, `postImage/${uniquePostId}`);
+
+    const res = await getDownloadURL(imageRef);
+
+    console.log("imageRef", res);
   }
 
   return (
