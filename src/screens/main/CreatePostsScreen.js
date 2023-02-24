@@ -1,5 +1,6 @@
 import { Camera } from "expo-camera";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -16,7 +17,8 @@ import { glStyle } from "../../styles/style";
 
 //firebase
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebase/config";
+import { collection, addDoc, setDoc } from "firebase/firestore";
+import { storage, db } from "../../firebase/config";
 
 // icons
 import { Ionicons } from "@expo/vector-icons";
@@ -24,7 +26,7 @@ import { EvilIcons } from "@expo/vector-icons";
 
 const initialState = {
   name: "",
-  locationName: "",
+  location: "",
 };
 
 function CreatePostsScreen({ navigation }) {
@@ -34,6 +36,8 @@ function CreatePostsScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [inputData, setInputData] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+
+  const { userId, nikname } = useSelector((state) => state.auth);
 
   // keyboard
   const keyboardShow = () => {
@@ -69,10 +73,7 @@ function CreatePostsScreen({ navigation }) {
     const photo = await cameraRef.takePictureAsync();
     const location = await Location.getCurrentPositionAsync();
 
-    setLocation({
-      longitude: location.coords.longitude,
-      latitude: location.coords.latitude,
-    });
+    setLocation(location);
     setPhoto(photo.uri);
   }
 
@@ -81,12 +82,29 @@ function CreatePostsScreen({ navigation }) {
   }
 
   function sendPost() {
-    navigation.navigate("Posts", { photo, location, inputData });
+    uploadPostToServer();
 
-    uploadPhotoToServer();
+    navigation.navigate("Posts");
 
     setInputData(initialState);
     setPhoto(undefined);
+  }
+
+  async function uploadPostToServer() {
+    try {
+      const imageUrl = await uploadPhotoToServer();
+      // imageUrl, location, name
+      const createPost = await addDoc(collection(db, "posts"), {
+        userId,
+        nikname,
+        imageUrl,
+        location,
+        description: inputData.name,
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function uploadPhotoToServer() {
@@ -100,9 +118,9 @@ function CreatePostsScreen({ navigation }) {
 
     const imageRef = await ref(storage, `postImage/${uniquePostId}`);
 
-    const res = await getDownloadURL(imageRef);
+    const imageURL = await getDownloadURL(imageRef);
 
-    console.log("imageRef", res);
+    return imageURL;
   }
 
   return (
@@ -158,11 +176,11 @@ function CreatePostsScreen({ navigation }) {
             style={[styles.input, glStyle.text, { paddingLeft: 28 }]}
             placeholder="Location..."
             onFocus={keyboardShow}
-            value={inputData.locationName}
+            value={inputData.location}
             onChangeText={(value) =>
               setInputData((pravState) => ({
                 ...pravState,
-                locationName: value,
+                location: value,
               }))
             }
           />
