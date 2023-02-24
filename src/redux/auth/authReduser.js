@@ -22,11 +22,12 @@ const authSlice = createSlice({
       ...state,
       stateChange: payload,
     }),
+    authSignOut: () => (initialState),
   },
 });
 
 const { actions, reducer } = authSlice;
 
-export const { updateUserProfile } = actions;
+export const { updateUserProfile, authStateChange, authSignOut } = actions;
 
 export default reducer;

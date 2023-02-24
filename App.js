@@ -5,9 +5,9 @@ import store from "./src/redux/store";
 import { useFonts } from "expo-font";
 import Main from "./src/components/Main";
 
-// import * as SplashScreen from "expo-splash-screen";
+import * as SplashScreen from "expo-splash-screen";
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 function App() {
   // fonts
@@ -28,7 +28,7 @@ function App() {
 
   return (
     // onLayout={onLayoutRootView}
-    <Provider store={store} >
+    <Provider store={store} onLayout={onLayoutRootView}>
      <Main/>
     </Provider>
   );

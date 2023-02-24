@@ -1,7 +1,6 @@
 import {
   StyleSheet,
   Text,
-  
   TouchableOpacity,
 } from "react-native";
 import { glStyle } from "../styles/style";

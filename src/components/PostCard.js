@@ -30,7 +30,9 @@ function PostCard({ dataPost, navigation }) {
           onPress={toLocationMap}
         >
           <EvilIcons name="location" size={24} color="#BDBDBD" />
-          <Text style={[styles.locationText, glStyle.text]}>{ inputData.locationName}</Text>
+          <Text style={[styles.locationText, glStyle.text]}>
+            {inputData.locationName}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

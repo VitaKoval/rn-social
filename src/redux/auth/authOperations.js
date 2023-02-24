@@ -6,7 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { updateUserProfile } from "./authReduser";
+import { updateUserProfile, authStateChange, authSignOut } from "./authReduser";
 
 function authSingUpUser({ email, login, password }) {
   return async (dispatch, setState) => {
@@ -44,7 +44,7 @@ function authSingInUser({ email, password }) {
   };
 }
 
-function authStateChanged() {
+function authStateChangedUser() {
   return async (dispatch, setState) => {
     try {
       await onAuthStateChanged(auth, (user) => {
@@ -56,9 +56,9 @@ function authStateChanged() {
               email: user.email,
             })
           );
-          dispatch(authStateChanged(true));
+          dispatch(authStateChange(true));
         }
-          return;
+        return;
       });
     } catch (error) {
       console.log(error.code, error.message);
@@ -66,6 +66,20 @@ function authStateChanged() {
   };
 }
 
-function authSingOutUser() {}
+function authSingOutUser() {
+  return async (dispatch, setState) => {
+    try {
+      await signOut(auth);
+      dispatch(authSignOut());
+    } catch (error) {
+      console.log(error.code, error.message);
+    }
+  };
+}
 
-export { authSingUpUser, authSingInUser, authStateChanged, authSingOutUser };
+export {
+  authSingUpUser,
+  authSingInUser,
+  authStateChangedUser,
+  authSingOutUser,
+};
