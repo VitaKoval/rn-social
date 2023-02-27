@@ -1,8 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    image: null,
-    nameImage: null,
+   posts: [
+        {
+      postId: "",
+      description: "",
+      district: null,
+      imageUrl: "",
+      location: "",
+      nikname: "",
+      userId: "",
+    },
+  ],
+  likes: [],
 }
 
 const authSlice = createSlice({
@@ -10,6 +20,9 @@ const authSlice = createSlice({
     initialState, 
     reducers: {
 // actions
+        addComment: (state, { payload }) => ({
+        
+    })
     }
 })
 

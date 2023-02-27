@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
+import { getAllPosts } from "../../redux/dashboard/dashboardOperations";
 // firebase
 import { db } from "../../firebase/config";
 import { collection, doc, getDocs } from "firebase/firestore";
@@ -9,21 +10,19 @@ import PostCard from "../../components/PostCard";
 function DefaultScreenPosts({ route, navigation }) {
   const [posts, setPosts] = useState([]);
 
-  async function getAllPosts() {
-    const querySnapshot = await getDocs(collection(db, "posts"));
+  useEffect(() => {
+    setPosts([]);
+    getAllPosts();
+  },[]);
 
-    //  потрібно щоб вертався масив з обʼєктами і потім його іутити в posts!
+  async function getAllPosts() {
+  const querySnapshot = await getDocs(collection(db, "posts"));
+
    querySnapshot.forEach((doc) => {
-      setPosts((prev)=>[...prev, { ...doc.data(), id: doc.id }]);
-    });
+  setPosts((prevState)=>[...prevState, { ...doc.data(), id: doc.id }]);
+  });
   }
 
-  useEffect(() => {
-    getAllPosts();
-  }, []);
-
-  console.log(posts);
-  
   return (
     <View style={styles.container}>
       <FlatList
@@ -33,7 +32,6 @@ function DefaultScreenPosts({ route, navigation }) {
           <PostCard
             dataPost={item}
             navigation={navigation}
-            location={() => {}}
           />
         )}
       />

@@ -12,5 +12,9 @@ export const glStyle = StyleSheet.create({
     textBold: {
         fontFamily: "Roboto500",
         fontSize: 16,
+    },
+    textSmall: {
+        fontFamily: 'Roboto400',
+        fontSize: 13,
     }
 })

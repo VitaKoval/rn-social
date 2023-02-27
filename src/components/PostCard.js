@@ -4,10 +4,10 @@ import { glStyle } from "../styles/style";
 import { EvilIcons } from "@expo/vector-icons";
 
 function PostCard({ dataPost, navigation }) {
-  const { userId, nikname, imageUrl, location, description } = dataPost;
+  const { userId, nikname, imageUrl, location, district, description, id } = dataPost;
 
   function toComments() {
-    navigation.navigate("CommentsScreen");
+    navigation.navigate("CommentsScreen", {id, imageUrl});
   }
 
   function toLocationMap() {
@@ -31,7 +31,7 @@ function PostCard({ dataPost, navigation }) {
         >
           <EvilIcons name="location" size={24} color="#BDBDBD" />
           <Text style={[styles.locationText, glStyle.text]}>
-            {/* {location} */}Location
+            {`${district.city}, ${district.country}`}
           </Text>
         </TouchableOpacity>
       </View>

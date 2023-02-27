@@ -34,6 +34,7 @@ function CreatePostsScreen({ navigation }) {
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState();
   const [location, setLocation] = useState(null);
+  const [district, setDistrict] = useState(null);
   const [inputData, setInputData] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
@@ -71,10 +72,20 @@ function CreatePostsScreen({ navigation }) {
 
   async function takePhoto() {
     const photo = await cameraRef.takePictureAsync();
-    const location = await Location.getCurrentPositionAsync();
-
-    setLocation(location);
+    const currentLocation = await Location.getCurrentPositionAsync();
+  
+    setLocation(currentLocation);
     setPhoto(photo.uri);
+    getCity(currentLocation);
+  }
+
+  async function getCity(currentLocation) {
+    const reversGeocode = await Location.reverseGeocodeAsync({
+      latitude: currentLocation.coords.latitude,
+      longitude: currentLocation.coords.longitude,
+    });
+
+    setDistrict(reversGeocode[0]);
   }
 
   function uploadPhoto() {
@@ -84,7 +95,14 @@ function CreatePostsScreen({ navigation }) {
   function sendPost() {
     uploadPostToServer();
 
-    navigation.navigate("Posts");
+    navigation.navigate("Posts", {
+        userId,
+        nikname,
+        imageUrl: photo,
+        location,
+        district,
+        description: inputData.name,
+      });
 
     setInputData(initialState);
     setPhoto(undefined);
@@ -93,15 +111,15 @@ function CreatePostsScreen({ navigation }) {
   async function uploadPostToServer() {
     try {
       const imageUrl = await uploadPhotoToServer();
-      // imageUrl, location, name
+      // imageUrl, location, name, district
       const createPost = await addDoc(collection(db, "posts"), {
         userId,
         nikname,
         imageUrl,
         location,
+        district,
         description: inputData.name,
       });
-
     } catch (error) {
       console.log(error);
     }
@@ -176,7 +194,7 @@ function CreatePostsScreen({ navigation }) {
             style={[styles.input, glStyle.text, { paddingLeft: 28 }]}
             placeholder="Location..."
             onFocus={keyboardShow}
-            value={inputData.location}
+            value={district && `${district.city}, ${district.region}, ${district.country}`}
             onChangeText={(value) =>
               setInputData((pravState) => ({
                 ...pravState,
