@@ -10,6 +10,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { useState} from "react";
 import ButtonActive from "../../components/ButtonActive";
@@ -54,11 +55,12 @@ function LoginScreen({ navigation }) {
             <KeyboardAvoidingView
               style={styles.containerForm}
               behavior={Platform.OS === "ios" ? "padding" : "height"}
+              // behavior='position'
             >
               <View
                 style={{
                   ...styles.form,
-                  marginBottom: isShowKeyboard ? -170 : 0,
+                  marginBottom: isShowKeyboard ? -200 : 0,
                 }}
               >
                 <Text style={{ ...styles.nameForm, ...glStyle.title }}>

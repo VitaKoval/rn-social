@@ -56,6 +56,7 @@ function RegistrationScreen({ navigation }) {
             <KeyboardAvoidingView
               style={styles.containerForm}
               behavior={Platform.OS === "ios" ? "padding" : "height"}
+              // behavior='position'
             >
               <View
                 style={{
